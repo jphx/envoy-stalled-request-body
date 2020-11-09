@@ -1,0 +1,27 @@
+{
+    "name": "asst-503-test",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.ibm.com/jschoudt/local-asst-503.git"
+    },
+    "description": "A test server that will be used to debug asst cerberus 503s",
+    "main": "index.js",
+    "config": {
+        "dockerns": "wdcloud",
+        "dockerreg": "us.icr.io"
+    },
+    "engines": {
+        "node": ">=12.0.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js",
+        "version": "echo $npm_package_version",
+        "build-image": "docker build -t ${npm_package_config_dockerreg}/${npm_package_config_dockerns}/${npm_package_name}:${npm_package_version} .",
+        "push-image": "docker push ${npm_package_config_dockerreg}/${npm_package_config_dockerns}/${npm_package_name}:${npm_package_version}",
+        "deploy": "kubectl apply -Rf kubernetes"
+    },
+    "author": "Jerre Schoudt <jschoudt@us.ibm.com>",
+    "license": "Apache-2.0"
+}

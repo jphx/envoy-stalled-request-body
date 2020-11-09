@@ -1,0 +1,31 @@
+# docker-compose.yml
+version: "3.7"
+services:
+  node-server:
+    image: us.icr.io/wdcloud/asst-503-test:0.0.1
+    hostname: node-server
+    ports:
+      - 8080:8080
+      - 8443:8443
+  haproxy:
+    image: haproxy:2.0
+    hostname: haproxy
+    ports:
+      - 8082:8082
+      - 8445:8445
+      - 1081:1081
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./haproxy/errors/404.http:/usr/local/etc/haproxy/errors/404.http:ro
+      - ./haproxy/combined.pem:/usr/local/etc/haproxy/certs/combined.pem:ro
+  envoy:
+    image: envoyproxy/envoy:v1.16.0
+    #command: ["envoy", "-c", "/etc/envoy/envoy.yaml", "--log-level", "trace"]
+    hostname: envoy
+    ports:
+      - 8081:8081
+      - 8444:8444
+      - 8001:8001
+    volumes:
+      - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - ./envoy/taps/:/taps/
