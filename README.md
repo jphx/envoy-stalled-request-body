@@ -3,7 +3,7 @@
 ## Background
 
 This repository is used to reproduce a presumed Envoy problem involving
-incomplete request bodies.  See Envoy issue xxxx.
+incomplete request bodies.  See Envoy issue https://github.com/envoyproxy/envoy/issues/13947.
 
 ## Setup
 
